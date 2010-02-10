@@ -22,9 +22,9 @@
 #ifndef NULL
 #define NULL ((void*)0)
 #endif
-#include "Decode_XA.h"
-#include "PSEmu_Plugin_Defs.h"
-#include "../plugins.h"
+#include "decode_xa.h"
+#include "psemu_plugin_defs.h"
+#include "plugins.h"
 
 #define SYMS_PER_LIB 32
 typedef struct {
@@ -38,7 +38,7 @@ typedef struct {
 #define NUM_PLUGINS 8
 
 /* PAD */
-typedef long (* PADopen)(unsigned long *);
+//typedef long (* PADopen)(unsigned long *);
 extern long PAD__init(long);
 extern long PAD__shutdown(void);	
 extern long PAD__open(void);
@@ -47,7 +47,7 @@ extern long PAD__readPort1(PadDataS*);
 extern long PAD__readPort2(PadDataS*);
 
 /* SPU NULL */
-typedef long (* SPUopen)(void);
+//typedef long (* SPUopen)(void);
 void NULL_SPUwriteRegister(unsigned long reg, unsigned short val);
 unsigned short NULL_SPUreadRegister(unsigned long reg);
 unsigned short NULL_SPUreadDMA(void);
@@ -107,7 +107,7 @@ long ISOplay(unsigned char *time);
 long ISOstop(void);
 
 /* NULL GPU */
-typedef long (* GPUopen)(unsigned long *, char *, char *);
+//typedef long (* GPUopen)(unsigned long *, char *, char *);
 long GPU__open(void);  
 long GPU__init(void);
 long GPU__shutdown(void);

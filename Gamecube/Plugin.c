@@ -22,14 +22,10 @@
 #include <zlib.h>
 
 //#include "../PsxCommon.h"
-#include "../PsxMem.h"
-#include "../plugins.h"
-#include "../Spu.h"
-#include "../Misc.h"
-
-#ifndef __GX__
-#include "NoPic.h"
-#endif //!__GX__
+#include "psxmem.h"
+#include "plugins.h"
+#include "spu.h"
+#include "misc.h"
 
 void OnFile_Exit();
 
@@ -204,8 +200,8 @@ int _OpenPlugins() {
 		info.PAD_setSensitive = PAD1_setSensitive;
 		sprintf(path, "%s%s", Config.BiosDir, Config.Bios);
 		strcpy(info.BIOSpath, path);
-		strcpy(info.MCD1path, Config.Mcd[1].Filename);
-		strcpy(info.MCD2path, Config.Mcd[2].Filename);
+		strcpy(info.MCD1path, Config.Mcd1);
+		strcpy(info.MCD2path, Config.Mcd2);
 		sprintf(path, "%s%s", Config.PluginsDir, Config.Gpu);
 		strcpy(info.GPUpath, path);
 		sprintf(path, "%s%s", Config.PluginsDir, Config.Spu);
@@ -226,8 +222,8 @@ int _OpenPlugins() {
 				PARSEPATH(Config.Spu,  info.SPUpath);
 				PARSEPATH(Config.Cdr,  info.CDRpath);
 
-				strcpy(Config.Mcd[1].Filename, info.MCD1path);
-				strcpy(Config.Mcd[2].Filename, info.MCD2path);
+				strcpy(Config.Mcd1, info.MCD1path);
+				strcpy(Config.Mcd2, info.MCD2path);
 				return -2;
 			} else {
 				Config.UseNet = 0;

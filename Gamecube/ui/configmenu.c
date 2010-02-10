@@ -22,11 +22,7 @@ void Config_menu()
 		}
 		if(GetInput(DOWN, DOWN, DOWN))
 		{
-#if 1
-			if(index < 5) index++;
-#else
-			if(index < 4) index++;
-#endif
+			if(index < Config.Cpu ? 5 : 6) index++;
 		}
 			
 		if(GetInput(A, A, A)) 
@@ -50,12 +46,16 @@ void Config_menu()
 					break;
 
 				case 4:
-#if 1
 					Config.Cpu ^= 1;
 					break;
 
 				case 5:
-#endif
+					if(!Config.Cpu) {
+						Settings.Jump ^= 1;
+						break;
+					}
+
+				case 6:
 					SaveConfig();
 					return;
 			}
@@ -85,12 +85,23 @@ void Config_menu()
 		printf("\tConfigure SPU\n");
 
 		printf("\x1b[%um", (index == 4) ? 32 : 37);
-#if 1
 		printf("\tCPU: %s\n", Config.Cpu ? "Interpreter" : "Recompiler");
 
 		printf("\x1b[%um", (index == 5) ? 32 : 37);
-#endif
+
+		if(!Config.Cpu) {
+			printf("\tRecompiler: %s\n", Settings.Jump ? "Fast" : "Normal");
+
+			printf("\x1b[%um", (index == 6) ? 32 : 37);
+		}
+
 		printf("\n\tReturn\n\n");
+
+		if((!Config.Cpu) && Settings.Jump)
+		{
+			printf("\x1b[36m");
+			printf("\tFast: Speedup in some games, but may cause freezes.");
+		}
 
 		printf("\x1b[37m");								// Reset Color
 
@@ -252,7 +263,7 @@ static void ConfigurePAD(struct_pad *pad)
 		if(pad->analog == PAD_ANALOG)
 		{
 			printf("\x1b[36m");
-			printf("\tInput may be broken in some games.");
+			printf("\tanalog: Input may be broken in some games.");
 		}
 
 		printf("\x1b[37m");								// Reset Color

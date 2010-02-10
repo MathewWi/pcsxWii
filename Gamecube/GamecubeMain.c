@@ -24,8 +24,8 @@
 #include <stdarg.h>
 #include <errno.h>
 #include <string.h>
-#include "../System.h"
-#include "../R3000A/R3000A.h"
+#include "system.h"
+#include "r3000a.h"
 #include "DEBUG.h"
 
 #include "Config.h"
@@ -158,16 +158,19 @@ int main(int argc, char *argv[]) {
 	{
 		strcpy(Config.Bios, "SCPH1001.BIN"); // Use actual BIOS
 		strcpy(Config.BiosDir, "sd:/pcsx-r/bios/");
-
+/*
 		strcpy(Config.Mcd[0].Filename, "sd:/pcsx-r/memcards/Mcd001.mcr");
 		strcpy(Config.Mcd[1].Filename, "sd:/pcsx-r/memcards/Mcd002.mcr");
 		Config.Mcd[0].Enabled = 1;
 		Config.Mcd[1].Enabled = 1;
+*/
+		strcpy(Config.Mcd1, "sd:/pcsx-r/memcards/Mcd001.mcr");
+		strcpy(Config.Mcd2, "sd:/pcsx-r/memcards/Mcd002.mcr");
 
 		Config.Cpu 		= 1;	//interpreter = 1, dynarec = 0
 
 		Config.PsxOut 	= 0;
-		Config.HLE 		= 1;
+		Config.HLE 		= 0;
 		Config.Xa 		= 0;	//XA enabled
 		Config.Cdda 	= 0;
 		Config.PsxAuto 	= 1;	//Autodetect
@@ -206,18 +209,20 @@ void SysClose() {
 }
 
 void SysPrintf(char *fmt, ...) {
-	va_list list;
-	char msg[512];
+	if (Config.PsxOut) {
+		va_list list;
+		char msg[512];
 
-	va_start(list, fmt);
-	vsprintf(msg, fmt, list);
-	va_end(list);
+		va_start(list, fmt);
+		vsprintf(msg, fmt, list);
+		va_end(list);
 	
-	if (Config.PsxOut) printf ("%s", msg);
+		printf ("%s", msg);
 #if defined (CPU_LOG) || defined(DMA_LOG) || defined(CDR_LOG) || defined(HW_LOG) || \
 	defined(BIOS_LOG) || defined(GTE_LOG) || defined(PAD_LOG)
-	fprintf(emuLog, "%s", msg);
+		fprintf(emuLog, "%s", msg);
 #endif
+	}
 }
 
 void *SysLoadLibrary(char *lib) {

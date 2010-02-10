@@ -21,8 +21,8 @@
 #include <string.h>
 
 #define EXT
-#include "../PsxCommon.h"
-#include "../R3000A/R3000A.h"
+#include "psxcommon.h"
+#include "r3000a.h"
 #include "GamecubePlugins.h"
 
 #define CheckErr(func) \

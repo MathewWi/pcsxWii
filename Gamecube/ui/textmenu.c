@@ -1,5 +1,5 @@
 #include "textmenu.h"
-#include "../../R3000A/R3000A.h"
+#include "r3000a.h"
 #include "../save_state.h"
 
 #ifdef HW_RVL

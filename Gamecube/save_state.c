@@ -1,8 +1,8 @@
 #include "save_state.h"
 #include "plugins.h"
 #include "ui/textmenu.h"
-#include "../R3000A/R3000A.h"
-#include "../Misc.h"
+#include "r3000a.h"
+#include "misc.h"
 #include <malloc.h>
 
 static char* get_state_filename (int i) {

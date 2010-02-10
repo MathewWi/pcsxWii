@@ -22,7 +22,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-#include "PsxCommon.h"
+#include "../libpcsxcore/psxcommon.h"
 #include "Config.h"
 #include "pad.h"
 
@@ -97,8 +97,8 @@ int LoadConfig()
 	fclose(f);
 	
 	GetValue("Net", Config.Net);
-	GetValue("Mcd1", Config.Mcd[0].Filename);
-	GetValue("Mcd2", Config.Mcd[1].Filename);
+	GetValue("Mcd1", Config.Mcd1);
+	GetValue("Mcd2", Config.Mcd2);
 	GetValue("Bios", Config.Bios);
 	GetValue("BiosDir", Config.BiosDir);
 	GetValueld("Xa", Config.Xa);
@@ -116,9 +116,8 @@ int LoadConfig()
 	GetValueld("VSyncWA", Config.VSyncWA);
 	
 	GetValuel("LastDevice", Settings.device);
+	GetValuel("RecJump", Settings.Jump);
 
-	Config.Mcd[0].Enabled = 1;
-	Config.Mcd[1].Enabled = 1;
 	pads[0].num = 0;
 	pads[1].num = 1;
 
@@ -146,8 +145,8 @@ void SaveConfig() {
 	}
 
 	SetValue("Net", Config.Net);
-	SetValue("Mcd1", Config.Mcd[0].Filename);
-	SetValue("Mcd2", Config.Mcd[1].Filename);
+	SetValue("Mcd1", Config.Mcd1);
+	SetValue("Mcd2", Config.Mcd2);
 	SetValue("Bios", Config.Bios);
 	SetValue("BiosDir", Config.BiosDir);
 
@@ -166,6 +165,7 @@ void SaveConfig() {
 	SetValueld("VSyncWA", Config.VSyncWA);
 
 	SetValuel("LastDevice", Settings.device);
+	SetValuel("RecJump", Settings.Jump);
 
 	fclose(f);
 

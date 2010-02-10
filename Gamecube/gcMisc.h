@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#include "../PsxCommon.h"
+#include "psxcommon.h"
 #include "pad.h"
 
 void clrscr();
